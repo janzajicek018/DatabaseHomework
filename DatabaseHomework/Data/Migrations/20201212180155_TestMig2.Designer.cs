@@ -4,14 +4,16 @@ using DatabaseHomework.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseHomework.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201212180155_TestMig2")]
+    partial class TestMig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,20 +40,14 @@ namespace DatabaseHomework.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Animes");
+                    b.ToTable("Anime");
 
                     b.HasData(
                         new
                         {
                             ID = 1,
                             Episodes = 13,
-                            Name = "Bloom Into You"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Episodes = 23,
-                            Name = "Clannad"
+                            Name = "Bloom into you"
                         });
                 });
 
@@ -67,49 +63,7 @@ namespace DatabaseHomework.Data.Migrations
 
                     b.HasIndex("GenreID");
 
-                    b.ToTable("AnimeGenres");
-
-                    b.HasData(
-                        new
-                        {
-                            AnimeID = 1,
-                            GenreID = 1
-                        },
-                        new
-                        {
-                            AnimeID = 1,
-                            GenreID = 2
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 4
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 3
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 1
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 6
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 2
-                        },
-                        new
-                        {
-                            AnimeID = 2,
-                            GenreID = 5
-                        });
+                    b.ToTable("AnimeGenre");
                 });
 
             modelBuilder.Entity("DatabaseHomework.Models.Genre", b =>
@@ -125,38 +79,13 @@ namespace DatabaseHomework.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
                         {
                             ID = 1,
                             Name = "Romance"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Name = "School"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Name = "Drama"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Name = "Comedy"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Name = "Slice of Life"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Name = "Supernatural"
                         });
                 });
 
@@ -186,7 +115,7 @@ namespace DatabaseHomework.Data.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Review");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -214,15 +143,6 @@ namespace DatabaseHomework.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1",
-                            ConcurrencyStamp = "ea20b1fe-8db6-41c7-bfdd-f31b5149af38",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -312,24 +232,6 @@ namespace DatabaseHomework.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8c00a20-c90e-4aec-bc2a-97ee34567b4d",
-                            Email = "jan.zajicek1@pslib.cz",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JAN.ZAJICEK1@PSLIB.CZ",
-                            NormalizedUserName = "JAN.ZAJICEK1@PSLIB.CZ",
-                            PasswordHash = "AQAAAAEAACcQAAAAEInf37a2e8BopgOm9VOywuMo5rt7UpATSyCI9TzNMf0fmj0GtpT4/wFd+uFdua5iXQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "jan.zajicek1@pslib.cz"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -359,10 +261,12 @@ namespace DatabaseHomework.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -391,13 +295,6 @@ namespace DatabaseHomework.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                            RoleId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -406,10 +303,12 @@ namespace DatabaseHomework.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -422,13 +321,13 @@ namespace DatabaseHomework.Data.Migrations
             modelBuilder.Entity("DatabaseHomework.Models.AnimeGenre", b =>
                 {
                     b.HasOne("DatabaseHomework.Models.Anime", "Anime")
-                        .WithMany("AnimeGenres")
+                        .WithMany("Genres")
                         .HasForeignKey("AnimeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DatabaseHomework.Models.Genre", "Genre")
-                        .WithMany("AnimeGenres")
+                        .WithMany("Animes")
                         .HasForeignKey("GenreID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

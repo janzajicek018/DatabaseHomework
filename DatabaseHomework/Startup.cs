@@ -12,6 +12,8 @@ using DatabaseHomework.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using DatabaseHomework.Service;
 
 namespace DatabaseHomework
 {
@@ -30,8 +32,17 @@ namespace DatabaseHomework
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddAuthorization(
+                    options =>
+                    {
+                        options.AddPolicy("Admin", policy => policy.RequireRole("Administrator"));
+                    }
+
+                );
+            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<EmailSender>();
             services.AddRazorPages();
         }
 

@@ -1,0 +1,44 @@
+﻿@page
+@model DatabaseHomework.Areas.Admin.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Anime</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Anime.Name" class="control-label"></label>
+                <input asp-for="Anime.Name" class="form-control" />
+                <span asp-validation-for="Anime.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Description" class="control-label"></label>
+                <input asp-for="Anime.Description" class="form-control" />
+                <span asp-validation-for="Anime.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Anime.Episodes" class="control-label"></label>
+                <input asp-for="Anime.Episodes" class="form-control" />
+                <span asp-validation-for="Anime.Episodes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -4,14 +4,16 @@ using DatabaseHomework.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseHomework.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201213122903_TestMig3")]
+    partial class TestMig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,15 +216,6 @@ namespace DatabaseHomework.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1",
-                            ConcurrencyStamp = "ea20b1fe-8db6-41c7-bfdd-f31b5149af38",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -312,24 +305,6 @@ namespace DatabaseHomework.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8c00a20-c90e-4aec-bc2a-97ee34567b4d",
-                            Email = "jan.zajicek1@pslib.cz",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JAN.ZAJICEK1@PSLIB.CZ",
-                            NormalizedUserName = "JAN.ZAJICEK1@PSLIB.CZ",
-                            PasswordHash = "AQAAAAEAACcQAAAAEInf37a2e8BopgOm9VOywuMo5rt7UpATSyCI9TzNMf0fmj0GtpT4/wFd+uFdua5iXQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "jan.zajicek1@pslib.cz"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -391,13 +366,6 @@ namespace DatabaseHomework.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                            RoleId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
