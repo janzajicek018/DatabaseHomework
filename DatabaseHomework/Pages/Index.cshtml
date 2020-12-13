@@ -4,7 +4,58 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].Episodes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anime[0].AnimeGenres)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Animes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Episodes)
+                </td>
+                <td>
+                    @foreach (var g in item.AnimeGenres)
+                    {
+                        @if (g == item.AnimeGenres.Last())
+                        {
+                            @(g.Genre.Name)
+                        }
+                        else
+                        {
+                            @(g.Genre.Name + " | ")
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-area="Users" asp-page="Animes/Details" asp-route-id="@item.ID">Details</a> |
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-area="Users" asp-page="Reviews/Create" asp-route-id="@item.ID">Write Review</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

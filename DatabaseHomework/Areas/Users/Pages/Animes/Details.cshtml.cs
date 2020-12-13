@@ -7,20 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DatabaseHomework.Data;
 using DatabaseHomework.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace DatabaseHomework.Areas.Admin
+namespace DatabaseHomework.Areas.Users.Pages.Animes
 {
-    public class DeleteModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly DatabaseHomework.Data.ApplicationDbContext _context;
 
-        public DeleteModel(DatabaseHomework.Data.ApplicationDbContext context)
+        public DetailsModel(DatabaseHomework.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        [BindProperty]
         public Anime Anime { get; set; }
+        public Anime Reviews { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,31 +30,19 @@ namespace DatabaseHomework.Areas.Admin
                 return NotFound();
             }
 
-            Anime = await _context.Animes.FirstOrDefaultAsync(m => m.ID == id);
+            Anime = await _context.Animes.Include(a => a.AnimeGenres)
+                                         .ThenInclude(a => a.Genre)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(m => m.ID == id);
+            Reviews = await _context.Animes.Include(a => a.Reviews)
+                                           .AsNoTracking()
+                                           .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Anime == null)
             {
                 return NotFound();
             }
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Anime = await _context.Animes.FindAsync(id);
-
-            if (Anime != null)
-            {
-                _context.Animes.Remove(Anime);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
         }
     }
 }

@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DatabaseHomework.Data;
 using DatabaseHomework.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace DatabaseHomework.Areas.Admin
+namespace DatabaseHomework.Areas.Admin.Pages.Genres
 {
+    [Authorize(Policy = "Admin")]
+
     public class EditModel : PageModel
     {
         private readonly DatabaseHomework.Data.ApplicationDbContext _context;
@@ -21,7 +24,7 @@ namespace DatabaseHomework.Areas.Admin
         }
 
         [BindProperty]
-        public Anime Anime { get; set; }
+        public Genre Genre { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,9 +33,9 @@ namespace DatabaseHomework.Areas.Admin
                 return NotFound();
             }
 
-            Anime = await _context.Animes.FirstOrDefaultAsync(m => m.ID == id);
+            Genre = await _context.Genres.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Anime == null)
+            if (Genre == null)
             {
                 return NotFound();
             }
@@ -48,7 +51,7 @@ namespace DatabaseHomework.Areas.Admin
                 return Page();
             }
 
-            _context.Attach(Anime).State = EntityState.Modified;
+            _context.Attach(Genre).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +59,7 @@ namespace DatabaseHomework.Areas.Admin
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnimeExists(Anime.ID))
+                if (!GenreExists(Genre.ID))
                 {
                     return NotFound();
                 }
@@ -69,9 +72,9 @@ namespace DatabaseHomework.Areas.Admin
             return RedirectToPage("./Index");
         }
 
-        private bool AnimeExists(int id)
+        private bool GenreExists(int id)
         {
-            return _context.Animes.Any(e => e.ID == id);
+            return _context.Genres.Any(e => e.ID == id);
         }
     }
 }

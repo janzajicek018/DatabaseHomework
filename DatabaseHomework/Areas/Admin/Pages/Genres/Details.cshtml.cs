@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DatabaseHomework.Data;
 using DatabaseHomework.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace DatabaseHomework.Areas.Admin
+namespace DatabaseHomework.Areas.Admin.Pages.Genres
 {
+    [Authorize(Policy = "Admin")]
+
     public class DetailsModel : PageModel
     {
         private readonly DatabaseHomework.Data.ApplicationDbContext _context;
@@ -19,7 +22,7 @@ namespace DatabaseHomework.Areas.Admin
             _context = context;
         }
 
-        public Anime Anime { get; set; }
+        public Genre Genre { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +31,9 @@ namespace DatabaseHomework.Areas.Admin
                 return NotFound();
             }
 
-            Anime = await _context.Animes.FirstOrDefaultAsync(m => m.ID == id);
+            Genre = await _context.Genres.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Anime == null)
+            if (Genre == null)
             {
                 return NotFound();
             }

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using DatabaseHomework.Data;
 using DatabaseHomework.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace DatabaseHomework.Areas.Admin
+namespace DatabaseHomework.Areas.Admin.Pages.AnimeGenres
 {
+    [Authorize(Policy = "Admin")]
+
     public class IndexModel : PageModel
     {
         private readonly DatabaseHomework.Data.ApplicationDbContext _context;
@@ -19,11 +22,13 @@ namespace DatabaseHomework.Areas.Admin
             _context = context;
         }
 
-        public IList<Anime> Anime { get;set; }
+        public IList<AnimeGenre> AnimeGenre { get;set; }
 
         public async Task OnGetAsync()
         {
-            Anime = await _context.Animes.ToListAsync();
+            AnimeGenre = await _context.AnimeGenres
+                .Include(a => a.Anime)
+                .Include(a => a.Genre).ToListAsync();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace DatabaseHomework.Models
         public string UserID { get; set; }
         [ForeignKey("AnimeID")]
         public Anime Anime { get; set; }
+        [Required]
         public int AnimeID { get; set; }
 
 
