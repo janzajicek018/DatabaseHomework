@@ -37,7 +37,7 @@ namespace DatabaseHomework.Data
                 SecurityStamp = string.Empty
             });
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string> { RoleId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1", UserId = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" });
-
+            
 
 
             modelBuilder.Entity<Genre>().HasData(

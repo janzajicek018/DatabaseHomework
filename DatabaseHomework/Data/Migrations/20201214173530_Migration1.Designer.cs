@@ -4,14 +4,16 @@ using DatabaseHomework.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseHomework.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201214173530_Migration1")]
+    partial class Migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,7 +221,7 @@ namespace DatabaseHomework.Data.Migrations
                         new
                         {
                             Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX1",
-                            ConcurrencyStamp = "efd54e2a-bf69-47a1-b381-2a78f94757a9",
+                            ConcurrencyStamp = "cb6d25fe-1218-4f4f-a73b-71d40d45d956",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -318,13 +320,13 @@ namespace DatabaseHomework.Data.Migrations
                         {
                             Id = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f4d16c26-42c2-4300-b807-5d3dc8a86612",
+                            ConcurrencyStamp = "81705968-252f-4cdd-9fa7-d73920b6662d",
                             Email = "jan.zajicek1@pslib.cz",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JAN.ZAJICEK1@PSLIB.CZ",
                             NormalizedUserName = "JAN.ZAJICEK1@PSLIB.CZ",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKbx8DCq9T5ty+6d7QyTP74gThfpJw2NDTgBZf3VyOt9j3LfSg1LNqlV+sAiQmI2cA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMZVcKM7m+Wzqvi0fYaxd0LArQwI5+aWKOna1/0WrqZmix6hiMM18rvrMtB1sKE+1Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
